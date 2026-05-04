@@ -1,3 +1,4 @@
+// JK va här
 package com.example;
 
 //GSON objekt som vi behöver
