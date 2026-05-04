@@ -1,4 +1,5 @@
 package com.example;
+
 //GSON objekt som vi behöver
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -21,10 +22,11 @@ public class Main {
     private static ArrayList<Book> books = new ArrayList<>();
     private static ArrayList<Magazine> magazines = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) {
-        boolean running =true;
 
-        while (running == true){ 
+    public static void main(String[] args) {
+        boolean running = true;
+
+        while (running) {
             System.out.println("\n--- Libarysystem Meny ---");
             System.out.println("1. Hämta böcker");
             System.out.println("2. Hämta tidningar");
@@ -38,7 +40,7 @@ public class Main {
             String choice = scanner.nextLine();
 
             switch (choice) {
-                
+
                 case "1":
                     fetchBooks();
                     break;
@@ -67,48 +69,85 @@ public class Main {
             }
         }
     }
-private static void fetchBooks() {
+
+    private static void fetchBooks() {
         HttpResponse<String> response = Unirest.get(baseUrl + "/books").asString();
-        
-        Type bookListType = new TypeToken<ArrayList<Book>>(){}.getType();
+
+        Type bookListType = new TypeToken<ArrayList<Book>>() {
+        }.getType();
         books = gson.fromJson(response.getBody(), bookListType);
-        
-        System.out.println("Böcker har laddats in!");
+
+        System.out.println("\nAlla böcker från servern");
+
+        if (books.isEmpty()) {
+            System.out.println("Inga böcker hittades på servern.");
+        } else {
+            for (Book b : books) {
+                System.out
+                        .println("ID: " + b.getId() + " | Titel: " + b.getTitle() + " | Författare: " + b.getAuthor());
+            }
+        }
     }
 
-private static void fetchmagazines() {
+    private static void fetchMagazines() {
         HttpResponse<String> response = Unirest.get(baseUrl + "/magazines").asString();
-        
-        Type magListType = new TypeToken<ArrayList<Magazine>>(){}.getType();
+
+        Type magListType = new TypeToken<ArrayList<Magazine>>() {
+        }.getType();
         magazines = gson.fromJson(response.getBody(), magListType);
-        
-        System.out.println("Tidningar har laddats in!");
+
+        System.out.println("\nAlla tidningar från servern");
+
+        if (magazines.isEmpty()) {
+            System.out.println("Inga tidningar hittades på servern.");
+        } else {
+            for (Magazine m : magazines) {
+                System.out.println("ID: " + m.getId() + " | Titel: " + m.getTitle() + " | Nr: " + m.getIssueNumber());
+            }
+        }
     }
 
-private static void displayall(){
-    System.out.println("\nBöcker");
-    for(Book b : books)System.out.println(b.getTitle());
-    
-    System.out.println("\nTidingiar");
-for (Magazine m : magazines) System.out.println(m.getTitle());
-}
+    private static void displayBooks() {
+        System.out.println("\nBöcker");
+        for (Book b : books)
+            System.out.println(b.getTitle());
+    }
 
-private static void addNewBook() {
-        System.out.print("Titel: "); String t = scanner.nextLine();
-        System.out.print("Författare: "); String a = scanner.nextLine();
-        System.out.print("genre: "); String g = scanner.nextLine();
-        System.out.print("sidor: "); int p = Integer.parseInt(scanner.nextLine());
+    private static void displayMagazines() {
 
-        books.add(new Book(books.size() + 1, t, true,a ,g ,p));
-}
+        System.out.println("\nTidingiar");
+        for (Magazine m : magazines)
+            System.out.println(m.getTitle());
+    }
 
-private static void addNewMagazine() {
-        System.out.print("Titel: "); String t = scanner.nextLine();
-        System.out.print("Nummer: "); int n = Integer.parseInt(scanner.nextLine());
-        System.out.print("Kategori: "); String c = scanner.nextLine();
-        System.out.print("År: "); int y = Integer.parseInt(scanner.nextLine());
+    private static void addNewBook() {
+        System.out.print("Titel: ");
+        String t = scanner.nextLine();
+        System.out.print("Författare: ");
+        String a = scanner.nextLine();
+        System.out.print("genre: ");
+        String g = scanner.nextLine();
+        System.out.print("sidor: ");
+        int p = Integer.parseInt(scanner.nextLine());
 
-    
-        magazines.add(new Magazine(books.size() + 1, t, true,n, c ,y));
+        String id = String.valueOf(books.size() + 1);
+
+        books.add(new Book(id, t, a, g, p, true));
+    }
+
+    private static void addNewMagazine() {
+        System.out.print("Titel: ");
+        String t = scanner.nextLine();
+        System.out.print("Nummer: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        System.out.print("Kategori: ");
+        String c = scanner.nextLine();
+        System.out.print("År: ");
+        int y = Integer.parseInt(scanner.nextLine());
+
+        String id = String.valueOf(magazines.size() + 1);
+
+        magazines.add(new Magazine(id, t, n, c, y, true));
 
     }
+}
