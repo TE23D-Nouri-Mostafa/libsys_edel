@@ -1,33 +1,31 @@
+//Mostafa Nouri
+//Den här filen är som en mall för allt som finns i biblioteket. Den håller koll på de viktigaste sakerna som alla föremål har gemensamt (titel och ID).
+
 package com.example;
 
 public class LibaryItem {
     private String id;
-    private String titel;
+    private String title;
     private boolean isAvailable;
 
-    
-    public LibaryItem(String id, String titel, boolean isAvailable) {
+    public LibaryItem(String id, String title, boolean isAvailable) {
         this.id = id;
-        this.titel = titel;
+        this.title = title;
         this.isAvailable = isAvailable;
     }
 
     public LibaryItem() {
         this.id = "";
-        this.titel = "";
+        this.title = "";
         this.isAvailable = true;
     }
 
-
-    String getTitle() {
-        return titel;
+    public String getTitle() {
+        return title;
     }
-    String getId() {
+
+    public String getId() {
         return id;
-    }
-
-    public String getTitel() {
-        return titel;
     }
 
     public boolean isAvailable() {
@@ -38,8 +36,8 @@ public class LibaryItem {
         this.id = id;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setAvailable(boolean isAvailable) {

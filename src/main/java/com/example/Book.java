@@ -1,3 +1,6 @@
+//Mostafa Nouri
+//Den här filen används specifikt för böcker. Den lånar allt från mallen LibaryItem.java men lägger till egna saker, som hur många sidor boken har.
+
 package com.example;
 
 public class Book extends LibaryItem {
@@ -10,8 +13,8 @@ public class Book extends LibaryItem {
         super();
     }
 
-    public Book(String id, String titel, String author, String genre, int pages, boolean isAvailable) {
-        super();
+    public Book(String id, String title, String author, String genre, int pages, boolean isAvailable) {
+        super(id, title, isAvailable);
         this.author = author;
         this.genre = genre;
         this.pages = pages;
@@ -29,7 +32,7 @@ public class Book extends LibaryItem {
         this.pages = pages;
     }
 
-    String getAuthor() {
+    public String getAuthor() {
         return author;
     }
 }

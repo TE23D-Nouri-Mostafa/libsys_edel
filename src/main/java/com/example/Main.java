@@ -1,6 +1,7 @@
-// JK va här
-package com.example;
+//Mostafa Nouri
+//Denna fil innehåller programmets main-klass som hanterar menyval och kommunikation med bibliotekets server.
 
+package com.example;
 //GSON objekt som vi behöver
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -36,7 +37,7 @@ public class Main {
             System.out.println("5. Lägg till bok");
             System.out.println("6. Lägg till tidning");
             System.out.println("7. Avsluta");
-            System.out.println("Skriv 1-6 för alternativ:");
+            System.out.println("Skriv 1-7 för alternativ:");
 
             String choice = scanner.nextLine();
 
@@ -77,7 +78,6 @@ public class Main {
         Type bookListType = new TypeToken<ArrayList<Book>>() {
         }.getType();
         books = gson.fromJson(response.getBody(), bookListType);
-        System.out.println("books: "+response.getBody());
         System.out.println("\nAlla böcker från servern");
 
         if (books.isEmpty()) {
