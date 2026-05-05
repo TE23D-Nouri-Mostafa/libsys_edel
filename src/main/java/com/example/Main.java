@@ -77,7 +77,7 @@ public class Main {
         Type bookListType = new TypeToken<ArrayList<Book>>() {
         }.getType();
         books = gson.fromJson(response.getBody(), bookListType);
-
+        System.out.println("books: "+response.getBody());
         System.out.println("\nAlla böcker från servern");
 
         if (books.isEmpty()) {
