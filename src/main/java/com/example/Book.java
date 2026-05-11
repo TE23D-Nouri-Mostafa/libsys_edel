@@ -3,7 +3,7 @@
 
 package com.example;
 
-public class Book extends LibaryItem {
+public class Book extends LibaryItem implements Comparable<Book> {
 
     private String author;
     private String genre;
@@ -35,4 +35,18 @@ public class Book extends LibaryItem {
     public String getAuthor() {
         return author;
     }
+
+    @Override
+    public int compareTo(Book other) {
+        return this.getTitle().compareToIgnoreCase(other.getTitle());
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
 }
